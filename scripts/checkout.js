@@ -2,6 +2,7 @@ import{cart, removeFromCart}from'../data/cart.js';
 import{products}from'../data/products.js';
 import { formatCurrency } from './utils/money.js';
 
+
 let cartSummaryHTML ='';
 
 
@@ -12,7 +13,7 @@ cart.forEach((cartItem) =>{
 
     products.forEach((product) =>{
         if (product.id ===productId){
-           matchingProduct =product; 
+           matchingProduct = product; 
         }
     });
 
@@ -112,6 +113,7 @@ document.querySelectorAll('.js-delete-link')
         const container = document.querySelector(
             `.js-cart-item-container-${productId}`
         );
+        console.log(container);
         container.remove();
      });
   });
