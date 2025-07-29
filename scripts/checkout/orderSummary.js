@@ -75,7 +75,7 @@ export function renderOrderSummary() {
 
   document.querySelector(
     ".js-checkout-items-count"
-  ).innerText = `(${cart.length} items)`;
+  ).innerText = `${cart.length} Items`;
 
   function deliveryOptionsHTML(matchingProduct, cartItem) {
     let html = "";
@@ -124,13 +124,15 @@ export function renderOrderSummary() {
       const productId = link.dataset.productId;
       removeFromCart(productId);
 
+
       const container = document.querySelector(
         `.js-cart-item-container-${productId}`
       );
       console.log(container);
       container.remove();
 
-    
+     document.querySelector(".js-checkout-items-count").innerText = `${cart.length} Items`;
+
       renderPaymentSummary();
     });
   });
