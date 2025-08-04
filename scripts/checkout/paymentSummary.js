@@ -51,7 +51,7 @@ export function renderPaymentSummary() {
           </div>
 
           <button class="place-order-button button-primary 
-          js-place-order">
+          ">
             Place your order
           </button>
 
