@@ -5,29 +5,30 @@ import formatCurrency from "./utils/money.js";
 import { addToCart } from "../data/cart.js";
 
 // async function loadPage() {
-//   await loadProductsFetch();
+// await loadProductsFetch();
 
-//   let ordersHTML = "";
+// let ordersHTML = "";
 
-//   orders.forEach((order) => {
-//     const orderTimeString = dayjs(order.orderTime).format("MMMM D");
+// orders.forEach((order) => {
+// const orderTimeString = dayjs(order.orderTime).format("MMMM D");
 
 async function loadPage() {
   await loadProductsFetch();
 
   if (!orders || orders.length === 0) {
-    document.querySelector('.js-orders-grid').innerHTML =
-      `<div class="no-orders">No orders placed yet.</div>`;
-    return; 
+    document.querySelector(
+      ".js-orders-grid"
+    ).innerHTML = `<div class="no-orders">No orders placed yet.</div>`;
+    return;
   }
 
-  let ordersHTML = '';
+  let ordersHTML = "";
   orders
-    .filter(order => order.products && order.products.length > 0)
+    .filter((order) => order.products && order.products.length > 0)
     .forEach((order) => {
-      const orderTimeString = dayjs(order.orderTime).format('MMMM D');
+      const orderTimeString = dayjs(order.orderTime).format("MMMM D");
 
-    ordersHTML += `
+      ordersHTML += `
       <div class="order-container">
         <div class="order-header">
           <div class="order-header-left-section">
@@ -52,22 +53,22 @@ async function loadPage() {
         </div>
       </div>
     `;
-  });
-function productsListHTML(order) {
-  if (!order.products || !Array.isArray(order.products)) {
-    return `<div class="no-products">No products found for this order</div>`;
-  }
+    });
+  function productsListHTML(order) {
+    if (!order.products || !Array.isArray(order.products)) {
+      return `<div class="no-products">No products found for this order</div>`;
+    }
 
-  let productsListHTML = '';
-  order.products.forEach((productDetails) => {
-    const product = getProduct(productDetails.productId);
-    if (!product) return;
+    let productsListHTML = "";
+    order.products.forEach((productDetails) => {
+      const product = getProduct(productDetails.productId);
+      if (!product) return;
 
       //   function productsListHTML(order) {
-      //     let productsListHTML = '';
+      //   let productsListHTML = '';
 
       //     order.products.forEach((productDetails) => {
-      //       const product = getProduct(productDetails.productId);
+      //     const product = getProduct(productDetails.productId);
 
       productsListHTML += `
         <div class="product-image-container">
@@ -86,7 +87,9 @@ function productsListHTML(order) {
           <div class="product-quantity">
             Quantity: ${productDetails.quantity}
           </div>
-          <button class="buy-again-button button-primary js-buy-again " data-product-id="${product.id}">
+          <button class="buy-again-button button-primary js-buy-again " data-product-id="${
+            product.id
+          }">
             <img class="buy-again-icon" src="images/icons/buy-again.png">
             <span class="buy-again-message">Buy it again</span>
           </button>
@@ -107,17 +110,16 @@ function productsListHTML(order) {
 
   document.querySelector(".js-orders-grid").innerHTML = ordersHTML;
 
+  // console.log("loaded orders from storage:", orders);
+  // console.log("Orders array after import:", orders);
 
-// console.log("loaded orders from storage:", orders);
-// console.log("Orders array after import:", orders);
-
-  document.querySelectorAll('.js-buy-again').forEach((button) => {
-    button.addEventListener('click', () => {
+  document.querySelectorAll(".js-buy-again").forEach((button) => {
+    button.addEventListener("click", () => {
       addToCart(button.dataset.productId);
 
       // (Optional) display a message that the product was added,
       // then change it back after a second.
-      button.innerHTML = 'Added';
+      button.innerHTML = "Added";
       setTimeout(() => {
         button.innerHTML = `
           <img class="buy-again-icon" src="images/icons/buy-again.png">
@@ -128,18 +130,17 @@ function productsListHTML(order) {
   });
 }
 
-
 let ordersArray;
 
 try {
-  ordersArray = JSON.parse(localStorage.getItem('orders')) || [];
-  ordersArray = ordersArray.filter(o => o.products && o.products.length > 0);
-  localStorage.setItem('orders', JSON.stringify(ordersArray));
+  ordersArray = JSON.parse(localStorage.getItem("orders")) || [];
+  ordersArray = ordersArray.filter((o) => o.products && o.products.length > 0);
+  localStorage.setItem("orders", JSON.stringify(ordersArray));
 } catch (err) {
   ordersArray = [];
 }
 
-export const ordersData = ordersArray; 
+export const ordersData = ordersArray;
 
 export function addOrder(order) {
   ordersData.unshift(order);
@@ -147,12 +148,7 @@ export function addOrder(order) {
 }
 
 function saveToStorage() {
-  localStorage.setItem('orders', JSON.stringify(ordersData));
+  localStorage.setItem("orders", JSON.stringify(ordersData));
 }
-
-
-
-
-
 
 loadPage();

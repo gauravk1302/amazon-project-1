@@ -99,37 +99,38 @@ function renderProductsGrid() {
     document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
   }
 
-document.querySelectorAll(".js-add-to-cart").forEach((button) => {
-  button.addEventListener("click", () => {
-    const productId = button.dataset.productId;
+  document.querySelectorAll(".js-add-to-cart").forEach((button) => {
+    button.addEventListener("click", () => {
+      const productId = button.dataset.productId;
 
-    // ✅ Get the selected quantity
-    const productContainer = button.closest('.product-container');
-    const quantitySelector = productContainer.querySelector('select');
-    const selectedQuantity = parseInt(quantitySelector.value);
+      
+      const productContainer = button.closest(".product-container");
+      const quantitySelector = productContainer.querySelector("select");
+      const selectedQuantity = parseInt(quantitySelector.value);
 
-    // ✅ Pass quantity to addToCart
-    addToCart(productId, selectedQuantity);
-    updateCartQuantity();
+    
+      addToCart(productId, selectedQuantity);
+      updateCartQuantity();
 
-    // ✅ Show "Added" message
-    const addedMessage = productContainer.querySelector('.added-to-cart');
-    addedMessage.classList.add('visible');
-    setTimeout(() => addedMessage.classList.remove('visible'), 2000);
+      
+      const addedMessage = productContainer.querySelector(".added-to-cart");
+      addedMessage.classList.add("visible");
+      setTimeout(() => addedMessage.classList.remove("visible"), 2000);
+    });
   });
-});
-
-
 
   document.querySelector(".js-search-button").addEventListener("click", () => {
     const search = document.querySelector(".js-search-bar").value;
     window.location.href = `amazon.html?search=${search}`;
   });
-    // Extra feature: searching by pressing "Enter" on the keyboard.
-  document.querySelector('.js-search-bar')
-    .addEventListener('keydown', (event) => {
-      if (event.key === 'Enter') {
-        const searchTerm = document.querySelector('.js-search-bar').value;
+  
+  
+  
+  document
+    .querySelector(".js-search-bar")
+    .addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        const searchTerm = document.querySelector(".js-search-bar").value;
         window.location.href = `amazon.html?search=${searchTerm}`;
       }
     });
