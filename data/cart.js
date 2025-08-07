@@ -26,7 +26,7 @@ function saveToStorage() {
 }
 
 export function addToCart(productId, quantity = 1) {
-  let matchingItem;
+  let matchingItem= cart.find(item => item.productId === productId);
 
   cart.forEach((cartItem) => {
     if (productId === cartItem.productId) {
@@ -83,6 +83,8 @@ export function loadCart(fun) {
   xhr.open("GET", "https://supersimplebackend.dev/cart");
   xhr.send();
 }
+
+
 export function resetCart() {
   cart = [];
   saveToStorage();

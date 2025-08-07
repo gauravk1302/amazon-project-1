@@ -99,13 +99,27 @@ function renderProductsGrid() {
     document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
   }
 
-  document.querySelectorAll(".js-add-to-cart").forEach((button) => {
-    button.addEventListener("click", () => {
-      const productId = button.dataset.productId;
-      addToCart(productId);
-      updateCartQuantity();
-    });
+document.querySelectorAll(".js-add-to-cart").forEach((button) => {
+  button.addEventListener("click", () => {
+    const productId = button.dataset.productId;
+
+    // ✅ Get the selected quantity
+    const productContainer = button.closest('.product-container');
+    const quantitySelector = productContainer.querySelector('select');
+    const selectedQuantity = parseInt(quantitySelector.value);
+
+    // ✅ Pass quantity to addToCart
+    addToCart(productId, selectedQuantity);
+    updateCartQuantity();
+
+    // ✅ Show "Added" message
+    const addedMessage = productContainer.querySelector('.added-to-cart');
+    addedMessage.classList.add('visible');
+    setTimeout(() => addedMessage.classList.remove('visible'), 2000);
   });
+});
+
+
 
   document.querySelector(".js-search-button").addEventListener("click", () => {
     const search = document.querySelector(".js-search-bar").value;
